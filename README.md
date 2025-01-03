@@ -2,34 +2,36 @@
 
 no more nix, no more home-mangaer / just gnu stow and bash
 
-### Steps / todo 
-
-## init submodules
-- git submodule init
-- git submodule update
-
-## gnu stow
-- intall : sudo apt install stow build-essential
+## Updating
+To update the dotfiles pull this repo including its submodules:
+```
+git pull --recurse-submodules
+```
+## GNU Stow (Manage .dotfiles/Symlinks)
+- install (Deb): sudo apt install stow build-essential
 - symlink all dotfiles: `stow .`
 - cleanup all symlinks : `stow -D .` 
 
-## Requirements
+## Packages 
 
 ### Required Packages
+- stow
+- git
+- gnumake
 - nvim
 - fish
 - tmux
+- starship
+- fastfetch
+- zoxide
+- ripgrep
 - fzf
 - unzip
-- ripgrep
-- starship
-- zoxide
-- fastfetch
+- gcc
 
 ### Other Packages
 - just
 - nodejs
-- gcc
 - dust
 - tldr
 - bat
@@ -37,15 +39,22 @@ no more nix, no more home-mangaer / just gnu stow and bash
 - yazi
 - direnv
 - devbox
-- php
-- gnumake
+- docker
+- docker-compose
+- lazydocker
 
-### Gui/Desktop Packages
+### Desktop Packages
 - kitty
 - pavucontorl
 - nmapplet
 - xclip
+
+#### Hyprland/Wayland Packages
 - hyprland
 - hyprpaper
 - hyprlock
 - tofi
+- wdisplays
+- wl-clipboard
+
+

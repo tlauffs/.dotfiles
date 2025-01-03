@@ -8,4 +8,7 @@ no more nix, no more home-mangaer / just gnu stow and bash
 - git submodule init
 - git submodule update
 
-## install gnu stow
+## gnu stow
+- intall : sudo apt install stow build-essential
+- symlink all dotfiles: `stow .`
+- cleanup all symlinks : `stow -D .` 

@@ -1,0 +1,1 @@
+/nix/store/2pqs6jvakgaq0q9lwbyyv2fwh4izliqn-config.fish

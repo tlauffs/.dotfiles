@@ -1,0 +1,1 @@
+/nix/store/1wdq1kn8ywaahdlj8dipb4sx2sv4xyl0-bashrc

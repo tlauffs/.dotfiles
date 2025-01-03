@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Function to start or attach to a tmux session
+dir=$(zoxide query -i "$1")
+
+# Check if zoxide found a directory
+if [ -z "$dir" ]; then
+  echo "No directory found for: $1"
+  exit 1
+fi
+
+# Get the last folder name for the session name
+session_name=$(basename "$dir")
+
+# Replace leading dot with underscore for tmux session name
+tmux_session_name=${session_name/#./_}
+
+if [ -n "$TMUX" ]; then
+    # detach to avoid nesting
+    tmux new -d -s "$tmux_session_name" -c "$dir"
+    tmux switch-client -t "$tmux_session_name"
+else
+  # Create or attach to a tmux session in the directory
+  tmux new -As "$tmux_session_name" -c "$dir"
+fi

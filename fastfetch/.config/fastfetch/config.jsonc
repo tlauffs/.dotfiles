@@ -1,0 +1,64 @@
+{
+  "display": {
+    "binaryPrefix": "si",
+    "color": "blue",
+    "separator": "  "
+  },
+  "logo": {
+    "padding": {
+      "right": 3
+    },
+    "source": "none"
+  },
+  "modules": [
+    {
+      "key": "Host        ",
+      "type": "host"
+    },
+    {
+      "key": "Distro      ",
+      "type": "os"
+    },
+    {
+      "key": "Kernel      ",
+      "type": "kernel"
+    },
+    {
+      "key": "WM          ",
+      "type": "wm"
+    },
+    {
+      "key": "Terminal    ",
+      "type": "terminal"
+    },
+    {
+      "key": "Shell       ",
+      "type": "shell"
+    },
+    {
+      "key": "Packages    ",
+      "type": "packages"
+    },
+    "break",
+    {
+      "key": "CPU         ",
+      "temp": true,
+      "type": "cpu"
+    },
+    {
+      "key": "GPU         ",
+      "temp": true,
+      "type": "gpu"
+    },
+    {
+      "key": "Memory      ",
+      "type": "memory"
+    },
+    "break",
+    {
+      "paddingLeft": 3,
+      "symbol": "circle",
+      "type": "colors"
+    }
+  ]
+}

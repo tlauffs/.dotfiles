@@ -37,8 +37,6 @@ git pull --recurse-submodules
 - bat
 - btop
 - yazi
-- direnv
-- devbox
 - docker
 - docker-compose
 - lazydocker

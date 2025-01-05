@@ -19,30 +19,20 @@ echo "Installing flatpak and adding flathub remote..."
 sudo apt install -y flatpak gnome-software-plugin-flatpak
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
-# nix
-echo "Installing Nix..."
-sh <(curl -L https://nixos.org/nix/install) --daemon --no-prompt
-
 # Update and install dependencies
 echo "Updating apt repositories and installing dependencies..."
 sudo apt update -y
 sudo apt upgrade -y
-sudo apt install -y curl git unzip gpg wget make gcc ripgrep fzf python3 python3-venv python3-pip python3-launchpadlib
-
+sudo apt install -y curl git unzip gpg wget make gcc ripgrep fzf
 # Install additional packages
 echo "Installing packages..."
 sudo apt install -y vim stow tmux xclip
 
-# Kitty terminal
-echo "Installing Kitty terminal..."
-curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
-
 # Fish shell
 echo "Installing Fish shell..."
-echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/3/Debian_12/ /' | sudo tee /etc/apt/sources.list.d/shells:fish:release:3.list
-curl -fsSL https://download.opensuse.org/repositories/shells:fish:release:3/Debian_12/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/shells_fish_release_3.gpg > /dev/null
+sudo apt-add-repository ppa:fish-shell/release-3 -y
 sudo apt update -y
-sudo apt install -y fish 
+sudo apt install fish -y
 
 # Neovim
 echo "Installing Neovim..."
@@ -56,22 +46,24 @@ curl -sS https://starship.rs/install.sh | sh -s -- --yes
 
 # Zoxide
 echo "Installing Zoxide..."
-curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh -s -- --yes
+curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh -s 
 
 # Docker
-echo "Installing Docker..."
+# Add the official Docker repo
 sudo install -m 0755 -d /etc/apt/keyrings
-sudo wget -qO /etc/apt/keyrings/docker.asc https://download.docker.com/linux/debian/gpg
+sudo wget -qO /etc/apt/keyrings/docker.asc https://download.docker.com/linux/ubuntu/gpg
 sudo chmod a+r /etc/apt/keyrings/docker.asc
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
-  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt update -y
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt update
+
+# Install Docker engine and standard plugins
 sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-ce-rootless-extras
 
-# Add user to Docker group
-sudo usermod -aG docker "${USER}"
+# Give this user privileged Docker access
+sudo usermod -aG docker ${USER}
+
+# Limit log size to avoid running out of disk
+echo '{"log-driver":"json-file","log-opts":{"max-size":"10m","max-file":"5"}}' | sudo tee /etc/docker/daemon.json
 
 # LazyDocker
 echo "Installing LazyDocker..."
@@ -79,11 +71,7 @@ curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/i
 
 # Optional packages
 echo "Installing optional packages..."
-sudo apt install -y du-dust tldr bat btop
-
-# Just and Yazi via Nix
-echo "Installing Just, Yazi and fastfetch via Nix..."
-nix-env -iA nixpkgs.just nixpkgs.yazi nixpkgs.fastfetch
+sudo apt install -y  bat btop kitty jq
 
 # Git aliases
 echo "Configuring Git aliases..."
@@ -96,12 +84,36 @@ git config --global alias.s status
 echo "Installing fonts..."
 mkdir -p ~/.local/share/fonts
 wget https://download.jetbrains.com/fonts/JetBrainsMono-1.0.0.zip
-unzip JetBrainsMono-1.0.0.zip -d ~/.local/share/fonts
-fc-cache -f -v
+unzip JetBrainsMono-1.0.0.zip -d JetBrainsMono
+cp JetBrainsMono/*.ttf ~/.local/share/fonts
+rm -rf JetBrainsMono.zip JetBrainsMono 
+
+# Mise: Install mise for managing multiple versions of languages. See https://mise.jdx.dev/
+sudo install -dm 755 /etc/apt/keyrings
+wget -qO - https://mise.jdx.dev/gpg-key.pub | gpg --dearmor | sudo tee /etc/apt/keyrings/mise-archive-keyring.gpg 1>/dev/null
+echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.gpg arch=$(dpkg --print-architecture)] https://mise.jdx.dev/deb stable main" | sudo tee /etc/apt/sources.list.d/mise.list
+sudo apt update
+sudo apt install -y mise
+
+# Node
+mise use --global node@lts
+
+# Python
+mise use --global python@latest
+
+# Php
+sudo add-apt-repository -y ppa:ondrej/php
+sudo apt -y install php8.3 php8.3-{curl,apcu,intl,mbstring,opcache,pgsql,mysql,sqlite3,redis,xml,zip}
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php composer-setup.php --quiet && sudo mv composer.phar /usr/local/bin/composer
+rm composer-setup.php
 
 # Symlink dotfiles
 echo "Creating symlinks for dotfiles..."
-stow fastfetch fish kitty nvim scripts tmux wallpapers xprofile
+stow fastfetch fish kitty nvim scripts tmux wallpapers 
+
+# source tmux
+tmux source-file ~/.tmux.conf
 
 echo "Installation finished at $(date)"
 

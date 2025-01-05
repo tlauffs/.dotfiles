@@ -5,12 +5,26 @@ no more nix, no more home-mangaer / just gnu stow and bash
 ## Updating
 To update the dotfiles pull this repo including its submodules:
 ```
+git submodule update --init --recursive
+git submodule update --recursive
 git pull --recurse-submodules
 ```
 ## GNU Stow (Manage .dotfiles/Symlinks)
-- install (Deb): sudo apt install stow build-essential
+- install (apt): sudo apt install stow build-essential
 - symlink all dotfiles: `stow .`
 - cleanup all symlinks : `stow -D .` 
+
+## Install
+For Ubuntu there is a Install script:
+```
+./install.sh
+```
+Optionaly install nix package manager and packages:
+```
+sh <(curl -L https://nixos.org/nix/install) --daemon
+nix-env -iA nixpkgs.just nixpkgs.yazi nixpkgs.fastfetch
+```
+otherwise list of  packages:
 
 ## Packages 
 
@@ -32,8 +46,6 @@ git pull --recurse-submodules
 ### Other Packages
 - just
 - nodejs
-- dust
-- tldr
 - bat
 - btop
 - yazi

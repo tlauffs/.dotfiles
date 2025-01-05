@@ -83,10 +83,13 @@ git config --global alias.s status
 # Fonts
 echo "Installing fonts..."
 mkdir -p ~/.local/share/fonts
-wget https://download.jetbrains.com/fonts/JetBrainsMono-1.0.0.zip
-unzip JetBrainsMono-1.0.0.zip -d JetBrainsMono
+cd /tmp
+wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip
+unzip JetBrainsMono.zip -d JetBrainsMono 
 cp JetBrainsMono/*.ttf ~/.local/share/fonts
-rm -rf JetBrainsMono.zip JetBrainsMono 
+rm -rf JetBrainsMono.zip JetBrainsMono
+fc-cache
+cd -
 
 # Mise: Install mise for managing multiple versions of languages. See https://mise.jdx.dev/
 sudo install -dm 755 /etc/apt/keyrings

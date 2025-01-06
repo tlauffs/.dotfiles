@@ -23,7 +23,7 @@ flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.f
 echo "Updating apt repositories and installing dependencies..."
 sudo apt update -y
 sudo apt upgrade -y
-sudo apt install -y curl git unzip gpg wget make gcc ripgrep fzf
+sudo apt install -y curl git unzip gpg wget make gcc ripgrep fzf fd-find
 # Install additional packages
 echo "Installing packages..."
 sudo apt install -y vim stow tmux xclip
@@ -36,7 +36,7 @@ sudo apt install fish -y
 
 # Neovim
 echo "Installing Neovim..."
-sudo add-apt-repository ppa:neovim-ppa/unstable -y
+sudo add-apt-repository ppa:neovim-ppa/stable -y
 sudo apt update -y
 sudo apt install -y neovim
 

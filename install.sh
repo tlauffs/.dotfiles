@@ -71,7 +71,7 @@ curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/i
 
 # Optional packages
 echo "Installing optional packages..."
-sudo apt install -y  bat btop kitty jq
+sudo apt install -y bat btop kitty jq
 
 # Git aliases
 echo "Configuring Git aliases..."
@@ -113,7 +113,7 @@ rm composer-setup.php
 
 # Symlink dotfiles
 echo "Creating symlinks for dotfiles..."
-stow fastfetch fish kitty nvim scripts tmux wallpapers 
+stow fastfetch fish kitty nvim scripts tmux wallpapers gtk rofi dunst
 
 # source tmux
 tmux source-file ~/.tmux.conf

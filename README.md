@@ -26,6 +26,10 @@ nix-env -iA nixpkgs.just nixpkgs.yazi nixpkgs.fastfetch
 ```
 otherwise list of  packages:
 
+## DWM
+Some dotfiles (rofi,gtk...) will only be needed when also installing a desktop/wm:
+- For my DWM install see: [DWM-config](https://github.com/tlauffs/dwm-config)
+
 ## Packages 
 
 ### Required Packages
@@ -58,13 +62,4 @@ otherwise list of  packages:
 - pavucontorl
 - nmapplet
 - xclip
-
-#### Hyprland/Wayland Packages
-- hyprland
-- hyprpaper
-- hyprlock
-- tofi
-- wdisplays
-- wl-clipboard
-
 

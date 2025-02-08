@@ -105,7 +105,6 @@ cd -
 
 # Symlink dotfiles
 echo "Creating symlinks for dotfiles..."
-cd ..
 stow fastfetch fish kitty nvim scripts tmux wallpapers gtk rofi dunst
 
 # source tmux

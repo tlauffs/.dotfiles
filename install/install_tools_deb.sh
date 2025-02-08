@@ -17,7 +17,7 @@ trap 'handle_error $LINENO' ERR
 # flathub
 echo "Installing flatpak and adding flathub remote..."
 sudo apt install -y flatpak gnome-software-plugin-flatpak
-flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
 # Update and install dependencies
 echo "Updating apt repositories and installing dependencies..."

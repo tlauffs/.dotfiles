@@ -107,8 +107,5 @@ cd -
 echo "Creating symlinks for dotfiles..."
 stow fastfetch fish kitty nvim scripts tmux wallpapers gtk rofi dunst
 
-# source tmux
-tmux source-file ~/.tmux.conf
-
 echo "Installation finished at $(date)"
 

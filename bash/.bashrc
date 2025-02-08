@@ -44,3 +44,5 @@ if [ -n "$PS1" ]; then
     exec fish
 fi
 
+# Add Neovim to PATH
+export PATH="$PATH:/opt/nvim/"

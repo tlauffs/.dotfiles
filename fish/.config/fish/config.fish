@@ -20,3 +20,6 @@ abbr mv "mv -i"
 abbr mkdir "mkdir -p"
 abbr .. 'cd ..'
 abbr ... 'cd ../..'
+
+# Add Neovim to PATH
+set -Ux PATH /opt/nvim $PATH

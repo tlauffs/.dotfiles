@@ -34,7 +34,7 @@ sudo apt update -y
 sudo apt install fish -y
 
 # install nix
-if command -v nix &>/dev/null; then
+if [ -d "/nix" ]; then
   echo "Nix is already installed."
 else
   echo "Nix is not installed. Installing..."

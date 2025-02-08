@@ -34,7 +34,12 @@ sudo apt update -y
 sudo apt install fish -y
 
 # install nix
-sh <(curl -L https://nixos.org/nix/install) --daemon
+if command -v nix &>/dev/null; then
+  echo "Nix is already installed."
+else
+  echo "Nix is not installed. Installing..."
+  sh <(curl -L https://nixos.org/nix/install) --daemon
+fi
 
 # Neovim
 echo "Installing Neovim..."

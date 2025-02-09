@@ -26,3 +26,6 @@ set -Ux PATH /opt/nvim $PATH
 
 # add to path
 set -U fish_user_paths $HOME/.local/bin $fish_user_paths
+
+# add npm path
+set -gx PATH $HOME/.npm/global/bin $PATH

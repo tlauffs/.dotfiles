@@ -34,4 +34,8 @@ case $- in
     *i*) exec fish ;;
 esac
 
+# add .local/bin to path
 export PATH="$HOME/.local/bin:$PATH"
+
+# add npm to path
+export PATH="${HOME}/.npm/global/bin:$PATH"

@@ -20,6 +20,8 @@ sudo ./install/setup_deb.sh
 ```
 - restart terminal (to start nix) then run
 ```
+nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
+nix-channel --update
 chmod +x ./install/install_nix_pkgs.sh
 ./install/install_nix_pkgs.sh
 ```

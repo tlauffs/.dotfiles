@@ -31,18 +31,5 @@ if ! shopt -oq posix; then
 fi
 
 case $- in
-    *i*) 
-        # Start Fish shell for interactive sessions
-        exec fish
-        ;;
-    *) 
-        return
-        ;;
+    *i*) exec fish ;;
 esac
-
-if [ -n "$PS1" ]; then
-    exec fish
-fi
-
-# Add Neovim to PATH
-export PATH="$PATH:/opt/nvim/"

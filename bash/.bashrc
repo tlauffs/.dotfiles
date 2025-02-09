@@ -33,3 +33,5 @@ fi
 case $- in
     *i*) exec fish ;;
 esac
+
+export PATH="$HOME/.local/bin:$PATH"

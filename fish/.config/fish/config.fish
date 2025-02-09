@@ -23,3 +23,6 @@ abbr ... 'cd ../..'
 
 # Add Neovim to PATH
 set -Ux PATH /opt/nvim $PATH
+
+# add to path
+set -U fish_user_paths $HOME/.local/bin $fish_user_paths

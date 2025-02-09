@@ -14,6 +14,9 @@ handle_error() {
 
 trap 'handle_error $LINENO' ERR
 
+sudo apt update -y
+sudo apt upgrade -y
+
 # flathub
 echo "Installing flatpak and adding flathub remote..."
 sudo apt install -y flatpak gnome-software-plugin-flatpak
@@ -21,17 +24,10 @@ sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flat
 
 # Update and install dependencies
 echo "Updating apt repositories and installing dependencies..."
-sudo apt update -y
-sudo apt upgrade -y
 sudo apt install -y curl git unzip gpg wget make gcc ripgrep fzf fd-find sudo ca-certificates
 # Install additional packages
 echo "Installing packages..."
 sudo apt install -y vim stow tmux 
-
-# Fish shell
-echo "Installing Fish shell..."
-sudo apt update -y
-sudo apt install fish -y
 
 # install nix
 if [ -d "/nix" ]; then
@@ -41,21 +37,9 @@ else
   sh <(curl -L https://nixos.org/nix/install) --daemon
 fi
 
-# Neovim
-echo "Installing Neovim..."
-curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage
-chmod u+x nvim-linux-x86_64.appimage
-# Move it to /opt/nvim/ for global usage
-sudo mkdir -p /opt/nvim
-sudo mv nvim-linux-x86_64.appimage /opt/nvim/nvim
-
-# Starship prompt
-echo "Installing Starship prompt..."
-curl -sS https://starship.rs/install.sh | sh -s -- --yes
-
-# Zoxide
-echo "Installing Zoxide..."
-curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh -s 
+# Fish shell
+echo "Installing Fish shell..."
+sudo apt install fish -y
 
 # Docker
 # Add the official Docker repo
@@ -77,14 +61,6 @@ sudo usermod -aG docker ${USER}
 # Limit log size to avoid running out of disk
 echo '{"log-driver":"json-file","log-opts":{"max-size":"10m","max-file":"5"}}' | sudo tee /etc/docker/daemon.json
 
-# LazyDocker
-echo "Installing LazyDocker..."
-curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
-
-# Optional packages
-echo "Installing optional packages..."
-sudo apt install -y bat btop kitty jq
-
 # Git aliases
 echo "Configuring Git aliases..."
 git config --global alias.co checkout
@@ -102,10 +78,6 @@ cp JetBrainsMono/*.ttf ~/.local/share/fonts
 rm -rf JetBrainsMono.zip JetBrainsMono
 fc-cache
 cd -
-
-# Symlink dotfiles
-echo "Creating symlinks for dotfiles..."
-stow fastfetch fish kitty nvim scripts tmux wallpapers gtk rofi dunst
 
 echo "Installation finished at $(date)"
 

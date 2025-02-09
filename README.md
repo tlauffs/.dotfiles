@@ -1,7 +1,5 @@
 # .dotfiles
 
-no more nix, no more home-mangaer / just gnu stow and bash
-
 ## Updating
 To update the dotfiles pull this repo including its submodules:
 ```
@@ -11,27 +9,26 @@ git pull --recurse-submodules
 ```
 ## GNU Stow (Manage .dotfiles/Symlinks)
 - install (apt): sudo apt install stow build-essential
-- symlink all dotfiles: `stow .`
+- symlink all dotfiles: `stow fastfetch fish kitty nvim scripts tmux wallpapers gtk`
 - cleanup all symlinks : `stow -D .` 
 
 ## Install
-For Ubuntu there is a Install script:
+Debian based setup
+- Run setup script
 ```
-./install.sh
+sudo ./install/setup_deb.sh
 ```
-Optionaly install nix package manager and packages:
+- restart terminal (to start nix) then run
 ```
-sh <(curl -L https://nixos.org/nix/install) --daemon
-nix-env -iA nixpkgs.just nixpkgs.yazi nixpkgs.fastfetch
+sudo ./install/install_nix_pkgs.sh
+```
+- symlink dotfiles
+```
+stow fastfetch fish kitty nvim scripts tmux wallpapers gtk
 ```
 otherwise list of  packages:
 
-## DWM
-Some dotfiles (rofi,gtk...) will only be needed when also installing a desktop/wm:
-- For my DWM install see: [DWM-config](https://github.com/tlauffs/dwm-config)
-
 ## Packages 
-
 ### Required Packages
 - stow
 - git
@@ -62,4 +59,3 @@ Some dotfiles (rofi,gtk...) will only be needed when also installing a desktop/w
 - pavucontorl
 - nmapplet
 - xclip
-

@@ -27,7 +27,12 @@ chmod +x ./install/install_nix_pkgs.sh
 ```
 stow fastfetch fish kitty nvim scripts tmux wallpapers gtk
 ```
-- optinally replace bashrc with ./bash/.bashrc
+- optinally replace bashrc with ./bash/.bashrc or
+```
+rm ~/.bashrc
+stow bash
+```
+
 otherwise list of  packages:
 
 ## Packages 

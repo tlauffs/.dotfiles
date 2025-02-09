@@ -20,7 +20,7 @@ sudo ./install/setup_deb.sh
 ```
 - restart terminal (to start nix) then run
 ```
-sudo ./install/install_nix_pkgs.sh
+./install/install_nix_pkgs.sh
 ```
 - symlink dotfiles
 ```

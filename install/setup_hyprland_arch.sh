@@ -1,8 +1,8 @@
 #!/bin/bash
 
 sudo pacman -Syu 
-sudo pacman -S hyprland kitty
+sudo pacman -S hyprland kitty thunar rofi-wayland waybar hyprpaper
 # must have utils
-sudo pacman -S dunst pipewire xdg-desktop-portal-hyprland hyprpolkitagent qt5-wayland qt6-wayland
+sudo pacman -S dunst pipewire xdg-desktop-portal-hyprland hyprpolkitagent qt5-wayland qt6-wayland cliphist
 
 

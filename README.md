@@ -13,10 +13,10 @@ git pull --recurse-submodules
 - cleanup all symlinks : `stow -D .` 
 
 ## Install
-Debian based setup
 - Run setup script
 ```
-sudo ./install/setup_deb.sh
+deb: sudo ./install/setup_deb.sh
+arch: sudo ./install/setup_arch.sh
 ```
 - restart terminal (to start nix) then run
 ```
@@ -27,12 +27,22 @@ chmod +x ./install/install_nix_pkgs.sh
 ```
 - symlink dotfiles
 ```
-stow fastfetch fish kitty nvim scripts tmux wallpapers gtk
+stow fastfetch fish nvim scripts tmux 
 ```
 - optinally replace bashrc with ./bash/.bashrc or
 ```
 rm ~/.bashrc
 stow bash
+```
+### Install Hyprland
+```
+arch: sudo ./install/setup_hyprland_arch.sh
+```
+- symlink dotfiles
+```
+stow kitty wallpapers gtk 
+mv ~/.config/hypr/hyprland.conf ~/.config/hypr/hyprland_template.conf
+stow hyprland
 ```
 
 otherwise list of  packages:
@@ -64,7 +74,10 @@ otherwise list of  packages:
 - lazydocker
 
 ### Desktop Packages
+- hyprland
 - kitty
-- pavucontorl
-- nmapplet
-- xclip
+- cliphist
+- rofi-wayland
+- waybar
+- dunst
+ 

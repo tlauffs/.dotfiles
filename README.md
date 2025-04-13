@@ -40,7 +40,7 @@ arch: sudo ./install/setup_hyprland_arch.sh
 ```
 - symlink dotfiles
 ```
-stow kitty wallpapers gtk waybar
+stow kitty wallpapers gtk waybar dunst rofi
 mv ~/.config/hypr/hyprland.conf ~/.config/hypr/hyprland_template.conf
 stow hyprland
 ```

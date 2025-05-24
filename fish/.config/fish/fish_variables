@@ -1,6 +1,10 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
+SETUVAR --export GTK_ICON_THEME:rose\x2dpine\x2dicons
+SETUVAR --export GTK_THEME:rose\x2dpine\x2dgtk
 SETUVAR --export --path PATH:/opt/nvim\x1e/home/tim/\x2elocal/bin\x1e/home/tim/\x2enpm/global/bin\x1e/home/tim/\x2enpm/global/bin\x1e/home/tim/\x2enix\x2dprofile/bin\x1e/nix/var/nix/profiles/default/bin\x1e/usr/local/sbin\x1e/usr/local/bin\x1e/usr/bin\x1e/usr/bin/site_perl\x1e/usr/bin/vendor_perl\x1e/usr/bin/core_perl
+SETUVAR --export XDG_CURRENT_DESKTOP:Hyprland
+SETUVAR --export XDG_SESSION_DESKTOP:Hyprland
 SETUVAR __fish_initialized:3800
 SETUVAR fish_color_autosuggestion:brblack
 SETUVAR fish_color_cancel:\x2dr

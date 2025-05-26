@@ -45,7 +45,7 @@ mv ~/.config/hypr/hyprland.conf ~/.config/hypr/hyprland_template.conf
 stow hyprland
 ```
 
-otherwise list of  packages:
+otherwise list of packages:
 
 ## Packages 
 ### Required Packages

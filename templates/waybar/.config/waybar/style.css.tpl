@@ -29,7 +29,7 @@ tooltip {
   padding: 2px 4px;
   background-color: ${THEME_BASE01}; 
   border: 2px solid ${THEME_BASE02};
-  color: ${THEME_BASE04}; 
+  color: ${THEME_BASE05}; 
   border-radius: 2px;
 }
 

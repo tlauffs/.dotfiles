@@ -1,0 +1,97 @@
+#!/bin/sh
+
+# This script applies a theme by substituting variables in template files.
+
+# --- Robust Path Resolution ---
+# Find the absolute path of the script itself, resolving any symlinks.
+# This is crucial for making the script work correctly even when symlinked
+# to a directory in the user's PATH.
+SCRIPT_PATH=$(readlink -f "$0")
+
+# Get the directory the script is located in.
+SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
+
+# Assume the script is in 'scripts/.local/bin', so navigate up to the repo root.
+DOTFILES_DIR=$(readlink -f "$SCRIPT_DIR/../../..")
+# ---
+
+# --- Argument and Theme Validation ---
+if [ -z "$1" ]; then
+  echo "Usage: apply-theme <theme_name>"
+  echo "Available themes:"
+  # List available .sh files in the themes directory, without the .sh extension
+  find "$DOTFILES_DIR/themes" -name '*.sh' -exec basename {} .sh \;
+  exit 1
+fi
+
+THEME_FILE="$DOTFILES_DIR/themes/$1.sh"
+
+if [ ! -f "$THEME_FILE" ]; then
+  echo "Error: Theme '$1' not found at '$THEME_FILE'"
+  exit 1
+fi
+# ---
+
+# --- Theme Application ---
+# Source the theme file to export all the color variables
+. "$THEME_FILE"
+echo "Applying theme '$1'..."
+
+# Process all .tpl files in the templates directory
+find "$DOTFILES_DIR/templates" -type f -name '*.tpl' | while read -r TEMPLATE_FILE; do
+  # Determine the destination path for the config file by removing the
+  # '.tpl' extension and the 'templates' directory part.
+  DEST_FILE_REL_PATH=$(echo "$TEMPLATE_FILE" | sed -e "s|$DOTFILES_DIR/templates/||" -e 's/\.tpl$//')
+  DEST_FILE_ABS_PATH="$DOTFILES_DIR/$DEST_FILE_REL_PATH"
+
+  echo "  -> Generating $DEST_FILE_ABS_PATH"
+
+  # Ensure the destination directory exists before writing the file
+  mkdir -p "$(dirname "$DEST_FILE_ABS_PATH")"
+
+  # Use envsubst to replace the variables and create the final config file
+  envsubst < "$TEMPLATE_FILE" > "$DEST_FILE_ABS_PATH"
+done
+
+# --- Hyprland Specific Theming ---
+echo "  -> Applying theme to Hyprland config..."
+hyprland_conf_path="$DOTFILES_DIR/hyprland/.config/hypr/hyprland.conf"
+
+# Replace inactive border color
+sed -i "s/col.inactive_border = 0xff#[0-9a-fA-F]\{6\}/col.inactive_border = 0xff${THEME_BASE02//\#}/" "$hyprland_conf_path"
+# Replace active border color
+sed -i "s/col.active_border   = 0xff#[0-9a-fA-F]\{6\}/col.active_border   = 0xff${THEME_BASE08//\#}/" "$hyprland_conf_path"
+# --- End Hyprland Specific Theming ---
+
+# --- Post-theming actions for Hyprland session ---
+if [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ]; then
+  echo "  -> Running Hyprland post-theming actions..."
+
+  # Reload Waybar
+  echo "    -> Reloading Waybar..."
+  pkill waybar && hyprctl dispatch exec waybar
+
+  # Change Wallpaper
+  echo "    -> Changing wallpaper..."
+  if [ -d "$WALLPAPER_DIR" ]; then
+    # Pick a random wallpaper from the directory
+    NEW_WALLPAPER=$(find "$WALLPAPER_DIR" -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.jpeg" \) | shuf -n 1)
+
+    if [ -n "$NEW_WALLPAPER" ]; then
+      # Preload and set the wallpaper for all monitors (empty monitor name)
+      hyprctl hyprpaper preload "$NEW_WALLPAPER"
+      hyprctl hyprpaper wallpaper ",""$NEW_WALLPAPER"
+      echo "      -> Wallpaper set to: $NEW_WALLPAPER"
+    else
+      echo "      -> No wallpapers found in $WALLPAPER_DIR. Skipping wallpaper change."
+    fi
+  else
+    echo "    -> Wallpaper directory $WALLPAPER_DIR does not exist. Skipping wallpaper change."
+  fi
+fi
+# --- End Post-theming actions ---
+
+# Save current theme name for startup scripts
+echo "$1" > "$HOME/.config/current_theme"
+
+echo "Theme '$1' applied successfully."

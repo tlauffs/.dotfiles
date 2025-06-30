@@ -68,8 +68,13 @@ wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsM
 unzip JetBrainsMono.zip -d JetBrainsMono 
 cp JetBrainsMono/*.ttf ~/.local/share/fonts
 rm -rf JetBrainsMono.zip JetBrainsMono
-fc-cache
+
+wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/VictorMono.zip
+unzip VictorMono.zip -d VictorMono
+cp VictorMono/*.ttf ~/.local/share/fonts
+rm -rf VictorMono.zip VictorMono
+
+fc-cache -f -v
 cd -
 
 echo "Installation finished at $(date)"
-

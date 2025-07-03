@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # This script applies a theme by substituting variables in template files.
 
@@ -67,10 +67,14 @@ sed -i "s/col.active_border   = 0xff#[0-9a-fA-F]\{6\}/col.active_border   = 0xff
 if [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ]; then
   echo "  -> Running Hyprland post-theming actions..."
 
-  # Reload Waybar
-  echo "    -> Reloading Waybar..."
-  pkill waybar && hyprctl dispatch exec waybar
+  # Get current workspace ID
+  CURRENT_WORKSPACE=$(hyprctl activeworkspace -j | jq -r '.id')
 
+  # Switch to an empty workspace
+  echo "    -> Switching to empty workspace..."
+  hyprctl dispatch workspace empty
+
+  sleep 0.2s
   # Change Wallpaper
   echo "    -> Changing wallpaper..."
   if [ -d "$WALLPAPER_DIR" ]; then
@@ -78,9 +82,8 @@ if [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ]; then
     NEW_WALLPAPER=$(find "$WALLPAPER_DIR" -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.jpeg" \) | shuf -n 1)
 
     if [ -n "$NEW_WALLPAPER" ]; then
-      # Preload and set the wallpaper for all monitors (empty monitor name)
-      hyprctl hyprpaper preload "$NEW_WALLPAPER"
-      hyprctl hyprpaper wallpaper ",""$NEW_WALLPAPER"
+      # Set the wallpaper
+      swww img "$NEW_WALLPAPER" --transition-type grow --transition-duration 1.2 --transition-pos 0.9,0.1
       echo "      -> Wallpaper set to: $NEW_WALLPAPER"
     else
       echo "      -> No wallpapers found in $WALLPAPER_DIR. Skipping wallpaper change."
@@ -88,6 +91,30 @@ if [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ]; then
   else
     echo "    -> Wallpaper directory $WALLPAPER_DIR does not exist. Skipping wallpaper change."
   fi
+
+    # Reload Kitty if running
+  if pgrep -x "kitty" > /dev/null; then
+    echo "    -> Reloading Kitty config..."
+    for pid in $(pidof kitty); do
+      kill -SIGUSR1 "$pid"
+    done
+  fi
+
+  # Reload Tmux if running
+  if tmux has-session 2>/dev/null; then
+    echo "    -> Reloading Tmux config..."
+    tmux source-file ~/.tmux.conf
+  fi
+
+  sleep 0.3s
+  # Reload Waybar
+  echo "    -> Reloading Waybar..."
+  pkill waybar && hyprctl dispatch exec waybar
+
+  sleep 1s
+  # Switch back to original workspace
+  echo "    -> Switching back to original workspace: $CURRENT_WORKSPACE"
+  hyprctl dispatch workspace "$CURRENT_WORKSPACE"
 fi
 # --- End Post-theming actions ---
 

@@ -67,12 +67,25 @@ sed -i "s/col.active_border   = 0xff#[0-9a-fA-F]\{6\}/col.active_border   = 0xff
 if [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ]; then
   echo "  -> Running Hyprland post-theming actions..."
 
-  # Get current workspace ID
-  CURRENT_WORKSPACE=$(hyprctl activeworkspace -j | jq -r '.id')
+  # Get original workspaces for all monitors
+  echo "    -> Storing original workspaces for all monitors..."
+  mapfile -t MONITOR_DATA < <(hyprctl monitors -j | jq -c '.[] | {id: .id, workspace: .activeWorkspace.id}')
 
-  # Switch to an empty workspace
-  echo "    -> Switching to empty workspace..."
-  hyprctl dispatch workspace empty
+  # Set vertical slide animation for workspace transition
+  echo "    -> Setting vertical slide animation..."
+  hyprctl keyword animation "workspacesIn,1,2,default,slidevert"
+  hyprctl keyword animation "workspacesOut,1,2,default,slidevert"
+
+  # Switch each monitor to a temporary workspace
+  echo "    -> Switching all monitors to a temporary workspace..."
+  TEMP_WORKSPACE_START=90
+  for i in "${!MONITOR_DATA[@]}"; do
+    monitor_json="${MONITOR_DATA[$i]}"
+    MONITOR_ID=$(echo "$monitor_json" | jq -r '.id')
+    TEMP_WORKSPACE=$((TEMP_WORKSPACE_START + i))
+    hyprctl dispatch focusmonitor "$MONITOR_ID"
+    hyprctl dispatch workspace "$TEMP_WORKSPACE"
+  done
 
   sleep 0.2s
   # Change Wallpaper
@@ -112,9 +125,19 @@ if [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ]; then
   pkill waybar && hyprctl dispatch exec waybar
 
   sleep 1s
-  # Switch back to original workspace
-  echo "    -> Switching back to original workspace: $CURRENT_WORKSPACE"
-  hyprctl dispatch workspace "$CURRENT_WORKSPACE"
+  # Switch back to original workspaces on each monitor
+  echo "    -> Switching back to original workspaces..."
+  for monitor_json in "${MONITOR_DATA[@]}"; do
+    MONITOR_ID=$(echo "$monitor_json" | jq -r '.id')
+    WORKSPACE_ID=$(echo "$monitor_json" | jq -r '.workspace')
+    hyprctl dispatch focusmonitor "$MONITOR_ID"
+    hyprctl dispatch workspace "$WORKSPACE_ID"
+  done
+
+  # Revert workspace animation to default
+  echo "    -> Reverting workspace animation to default..."
+  hyprctl keyword animation "workspacesIn, 1, 2, almostLinear"
+  hyprctl keyword animation "workspacesOut, 1, 2, almostLinear"
 fi
 # --- End Post-theming actions ---
 

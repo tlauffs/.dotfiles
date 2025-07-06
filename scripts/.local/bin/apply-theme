@@ -96,7 +96,7 @@ if [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ]; then
 
     if [ -n "$NEW_WALLPAPER" ]; then
       # Set the wallpaper
-      swww img "$NEW_WALLPAPER" --transition-type grow --transition-duration 1.2 --transition-pos 0.9,0.1
+      swww img "$NEW_WALLPAPER" --transition-type grow --transition-duration 1.2 --transition-pos 0.9,0.1 --transition-fps 60
       echo "      -> Wallpaper set to: $NEW_WALLPAPER"
     else
       echo "      -> No wallpapers found in $WALLPAPER_DIR. Skipping wallpaper change."

@@ -4,12 +4,17 @@
     "separator": "  "
   },
   "logo": {
+	"type": "small",
     "padding": {
+	  "top": 1,
       "right": 3
     },
-    "source": "none"
   },
   "modules": [
+	{
+      "type": "custom",
+  	  "text": ""
+    },
     {
       "key": "Host        ",
       "type": "host"

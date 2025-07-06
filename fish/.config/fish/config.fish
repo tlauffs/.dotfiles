@@ -10,6 +10,9 @@ zoxide init --cmd cd fish | source
 # starship
 starship init fish | source
 
+# greeting
+set -g fish_greeting ""
+
 # Hook for Direnv
 # direnv hook fish | source
 
@@ -29,3 +32,12 @@ set -U fish_user_paths $HOME/.local/bin $fish_user_paths
 
 # add npm path
 set -gx PATH $HOME/.npm/global/bin $PATH
+
+# Optional: for desktop detection
+if test "$XDG_SESSION_TYPE" = "wayland"
+    set -gx XDG_CURRENT_DESKTOP Hyprland
+    set -gx XDG_SESSION_DESKTOP Hyprland
+end
+
+clear
+fastfetch

@@ -13,18 +13,26 @@ WALLPAPER_DIR="$HOME/wallpapers/$CURRENT_THEME_NAME/"
 
 # Set a random wallpaper from the theme's directory
 if [ -d "$WALLPAPER_DIR" ]; then
-  # Get the current wallpaper for the first monitor
-  CURRENT_WALLPAPER=$(swww query | head -n 1 | awk -F 'image: ' '{print $2}')
+  # Get the filename of the current wallpaper
+  CURRENT_WALLPAPER_FILENAME=$(swww query | head -n 1 | awk -F 'image: ' '{print $2}' | xargs basename)
 
-  # Find all wallpapers and select one that is not the current one
-  CANDIDATE_WALLPAPERS=$(find "$WALLPAPER_DIR" -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.jpeg" \) -not -path "$CURRENT_WALLPAPER")
+  # Find all wallpapers in the directory
+  ALL_WALLPAPERS=$(find "$WALLPAPER_DIR" -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.jpeg" \))
+
+  # Exclude the current wallpaper by its filename
+  CANDIDATE_WALLPAPERS=$(echo "$ALL_WALLPAPERS" | grep -vF "$CURRENT_WALLPAPER_FILENAME")
+
+  # If filtering left no wallpapers (e.g., only one wallpaper in the dir), use the full list
+  if [ -z "$CANDIDATE_WALLPAPERS" ]; then
+    CANDIDATE_WALLPAPERS="$ALL_WALLPAPERS"
+  fi
 
   if [ -n "$CANDIDATE_WALLPAPERS" ]; then
     NEW_WALLPAPER=$(echo "$CANDIDATE_WALLPAPERS" | shuf -n 1)
-    swww img "$NEW_WALLPAPER" --transition-type grow --transition-duration 1.2 --transition-pos 0.9,0.1
+    swww img "$NEW_WALLPAPER" --transition-type grow --transition-duration 1.2 --transition-pos 0.9,0.1 --transition-fps 60
     echo "Wallpaper set to: $NEW_WALLPAPER"
   else
-    echo "No other wallpapers found to switch to."
+    echo "No wallpapers found in '$WALLPAPER_DIR'." >&2
   fi
 else
   echo "Wallpaper directory '$WALLPAPER_DIR' does not exist. Skipping wallpaper change." >&2

@@ -67,6 +67,9 @@ sed -i "s/col.active_border   = 0xff#[0-9a-fA-F]\{6\}/col.active_border   = 0xff
 if [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ]; then
   echo "  -> Running Hyprland post-theming actions..."
 
+  # Get the ID of the currently focused monitor
+  FOCUSED_MONITOR_ID=$(hyprctl monitors -j | jq -r '.[] | select(.focused == true) | .id')
+
   # Get original workspaces for all monitors
   echo "    -> Storing original workspaces for all monitors..."
   mapfile -t MONITOR_DATA < <(hyprctl monitors -j | jq -c '.[] | {id: .id, workspace: .activeWorkspace.id}')
@@ -127,12 +130,25 @@ if [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ]; then
   sleep 1s
   # Switch back to original workspaces on each monitor
   echo "    -> Switching back to original workspaces..."
+  FOCUSED_MONITOR_JSON=""
   for monitor_json in "${MONITOR_DATA[@]}"; do
     MONITOR_ID=$(echo "$monitor_json" | jq -r '.id')
-    WORKSPACE_ID=$(echo "$monitor_json" | jq -r '.workspace')
+    if [ "$MONITOR_ID" == "$FOCUSED_MONITOR_ID" ]; then
+      FOCUSED_MONITOR_JSON="$monitor_json"
+    else
+      WORKSPACE_ID=$(echo "$monitor_json" | jq -r '.workspace')
+      hyprctl dispatch focusmonitor "$MONITOR_ID"
+      hyprctl dispatch workspace "$WORKSPACE_ID"
+    fi
+  done
+
+  # Switch the focused monitor back last
+  if [ -n "$FOCUSED_MONITOR_JSON" ]; then
+    MONITOR_ID=$(echo "$FOCUSED_MONITOR_JSON" | jq -r '.id')
+    WORKSPACE_ID=$(echo "$FOCUSED_MONITOR_JSON" | jq -r '.workspace')
     hyprctl dispatch focusmonitor "$MONITOR_ID"
     hyprctl dispatch workspace "$WORKSPACE_ID"
-  done
+  fi
 
   # Revert workspace animation to default
   echo "    -> Reverting workspace animation to default..."

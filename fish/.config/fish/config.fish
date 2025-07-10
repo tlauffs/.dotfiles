@@ -1,5 +1,6 @@
 # Set the editor to Vim
 set -gx EDITOR nvim
+set -gx VISUAL nvim
 
 # Initialize Starship prompt
 starship init fish | source
@@ -23,6 +24,8 @@ abbr mv "mv -i"
 abbr mkdir "mkdir -p"
 abbr .. 'cd ..'
 abbr ... 'cd ../..'
+
+abbr yayf 'yay -Slq | fzf --multi --preview "yay -Sii {1}" | xargs -ro yay -S'
 
 # Add Neovim to PATH
 set -Ux PATH /opt/nvim $PATH

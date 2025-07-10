@@ -43,7 +43,7 @@ tooltip {
 
 #workspaces {
   background-color: ${THEME_BASE01};
-  padding: 0 5px;
+  padding: 0 0;
   margin: 6px 0px 6px 6px;
   border: 2px solid ${THEME_BASE02}; 
 }
@@ -52,12 +52,22 @@ tooltip {
   all: initial;
   min-width: 20px;
   box-shadow: inset 0 -3px transparent;
-  padding: 2px 4px;
+  padding: 2px 6px;
   color: ${THEME_BASE04}; 
 }
 
 #workspaces button.focused {
   color: ${THEME_BASE05}; 
+  background-color: ${THEME_BASE03}; /* Added for active workspace */
+}
+
+#workspaces button.active {
+  background-color: ${THEME_BASE03}; /* Active workspace background */
+  color: ${THEME_BASE05}; /* Active workspace text color */
+}
+
+#workspaces button:hover {
+  background-color: ${THEME_BASE02}; /* Hover background */
 }
 
 #workspaces button.urgent {

@@ -24,7 +24,7 @@ sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flat
 
 # Update and install dependencies
 echo "Updating apt repositories and installing dependencies..."
-sudo apt install -y curl git unzip gpg wget make gcc ripgrep fzf fd-find sudo ca-certificates xz-utils
+sudo apt install -y curl git unzip gpg wget make gcc ripgrep fzf fd-find sudo ca-certifigcates xz-utils
 # Install additional packages
 echo "Installing packages..."
 sudo apt install -y vim stow tmux 

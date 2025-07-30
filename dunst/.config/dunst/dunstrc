@@ -10,32 +10,33 @@
     horizontal_padding = 10
     frame_width = 1
     gap_size = 3
-    font = "JetBrainsMono Nerd Font"
+	font = "JetBrainsMono Nerd Font", "Noto Color Emoji"
+
 
     enable_recursive_icon_lookup = true
     corner_radius = 2
 
-    background = "#1e1e2e"
-    foreground = "#cdd6f4"
+    background = "#1d2021"
+    foreground = "#fbf1c7"
 
 [urgency_low]
-    background = "#181825"
-    highlight = "#a6e3a1"
-    frame_color = "#a6e3a1"
+    background = "#3c3836"
+    highlight = "#b8bb26"
+    frame_color = "#b8bb26"
     default_icon = "dialog-information"
-    format = "<b><span foreground='#a6e3a1'>%s</span></b>\n%b"
+    format = "<b><span foreground='#b8bb26'>%s</span></b>\n%b"
 
 [urgency_normal]
-    background = "#313244"
-    highlight = "#f9e2af"
-    frame_color = "#f9e2af"
+    background = "#504945"
+    highlight = "#fabd2f"
+    frame_color = "#fabd2f"
     default_icon = "dialog-warning"
-    format = "<b><span foreground='#f9e2af'>%s</span></b>\n%b"
+    format = "<b><span foreground='#fabd2f'>%s</span></b>\n%b"
 
 [urgency_critical]
-    background = "#f38ba8"
-    highlight = "#f38ba8"
-    frame_color = "#f38ba8"
+    background = "#fb4934"
+    highlight = "#fb4934"
+    frame_color = "#fb4934"
     default_icon = "dialog-error"
-    format = "<b><span foreground='#f38ba8'>%s</span></b>\n%b"
+    format = "<b><span foreground='#fb4934'>%s</span></b>\n%b"
 

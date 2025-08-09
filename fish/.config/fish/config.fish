@@ -2,14 +2,10 @@
 set -gx EDITOR nvim
 set -gx VISUAL nvim
 
-# vi mode
-set -g fish_key_bindings fish_vi_key_bindings
 
-for mode in insert default visual
-	bind -M $mode \cc commandline -f cancel
-    bind -M $mode \cr fzf_history_opts
-	bind -M $mode \cl fzf_git_log_opts
-end
+bind \cr fzf_history_opts
+bind \cg fzf_git_log_opts
+
 
 abbr yayf 'yay -Slq | fzf --multi --preview "yay -Sii {1}" | xargs -ro yay -S'
 
@@ -81,18 +77,15 @@ end
 # fzf_git_log_opts: fuzzy search through git log
 function fzf_git_log_opts
     if not git rev-parse --git-dir > /dev/null 2>&1
-        echo "Not a git repo"
+        echo "Not a git repo" >&2
         return 1
     end
 
-    # Use --color=always so fzf can display colored output
-    # Preview shows changed files and diff for the selected commit
     set log (git log --oneline --color=always | fzf --ansi --reverse --height=60% \
         --preview 'git show --color=always --stat --patch {1}' \
         --preview-window=right:60%:wrap)
 
     if test -n "$log"
-        # Extract commit hash (first token) from the selected line
         set commit_hash (string split ' ' -- $log)[1]
         commandline --insert $commit_hash
     end

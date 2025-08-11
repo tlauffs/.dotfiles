@@ -80,5 +80,4 @@ set -g pane-active-border-style fg=${THEME_BASE0B}
 set -g message-style bg=${THEME_BASE00},fg=${THEME_BASE0B}
 
 # Clock Mode Styling (When Showing the Clock in a Pane)
-set -g clock-mode-colour ${THEME_BASE0B}
 set -g clock-mode-style 24

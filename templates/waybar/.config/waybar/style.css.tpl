@@ -30,7 +30,7 @@ tooltip {
   background-color: ${THEME_BASE01}; 
   border: 2px solid ${THEME_BASE02};
   color: ${THEME_BASE05}; 
-  border-radius: 2px;
+  border-radius: 6px;
 }
 
 #window {
@@ -45,7 +45,8 @@ tooltip {
   background-color: ${THEME_BASE01};
   padding: 0 0;
   margin: 6px 0px 6px 6px;
-  border: 2px solid ${THEME_BASE02}; 
+  border: 2px solid ${THEME_BASE02};
+  border-radius: 6px;
 }
 
 #workspaces button {

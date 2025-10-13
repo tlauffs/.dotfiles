@@ -55,6 +55,7 @@ tooltip {
   box-shadow: inset 0 -3px transparent;
   padding: 2px 6px;
   color: ${THEME_BASE04}; 
+  border-radius: 3px;
 }
 
 #workspaces button.focused {

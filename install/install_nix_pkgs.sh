@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# TODO: replace with debian packages in deb install script (use nix only for nix shell)
 # tools
 nix-env -iA nixpkgs.neovim nixpkgs.fish nixpkgs.starship nixpkgs.zoxide nixpkgs.lazydocker nixpkgs.fastfetch nixpkgs.bat nixpkgs.dust nixpkgs.tldr nixpkgs.btop nixpkgs.yazi nixpkgs.direnv nixpkgs.jq
 

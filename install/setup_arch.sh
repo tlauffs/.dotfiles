@@ -26,7 +26,26 @@ echo "Updating repositories and installing dependencies..."
 sudo pacman -S curl git unzip wget make gcc ripgrep fzf fd sudo ca-certificates 
 # Install additional packages
 echo "Installing packages..."
-sudo pacman -S vim stow tmux
+sudo pacman -S \
+        vim \
+		stow \
+		tmux \
+        jq \
+        nodejs npm \
+        php composer \
+        rust cargo \
+        neovim \
+        fish \
+        starship \
+        zoxide \
+        bat \
+        dust \
+        tldr \
+        btop \
+        direnv \
+        fastfetch \
+		lazydocker \
+		yazi
 
 # install nix
 if [ -d "/nix" ]; then

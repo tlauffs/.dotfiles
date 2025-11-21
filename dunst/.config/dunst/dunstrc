@@ -15,27 +15,27 @@
     enable_recursive_icon_lookup = true
     corner_radius = 2
 
-    background = "#1e1e2e"
-    foreground = "#cdd6f4"
+    background = "#eee7df"
+    foreground = "#575279"
 
 [urgency_low]
-    background = "#181825"
-    highlight = "#a6e3a1"
-    frame_color = "#a6e3a1"
+    background = "#f4ede6"
+    highlight = "#286983"
+    frame_color = "#286983"
     default_icon = "dialog-information"
-    format = "<b><span foreground='#a6e3a1'>%s</span></b>\n%b"
+    format = "<b><span foreground='#286983'>%s</span></b>\n%b"
 
 [urgency_normal]
-    background = "#313244"
-    highlight = "#f9e2af"
-    frame_color = "#f9e2af"
+    background = "#e6dbd2"
+    highlight = "#d7827e"
+    frame_color = "#d7827e"
     default_icon = "dialog-warning"
-    format = "<b><span foreground='#f9e2af'>%s</span></b>\n%b"
+    format = "<b><span foreground='#d7827e'>%s</span></b>\n%b"
 
 [urgency_critical]
-    background = "#f38ba8"
-    highlight = "#f38ba8"
-    frame_color = "#f38ba8"
+    background = "#b4637a"
+    highlight = "#b4637a"
+    frame_color = "#b4637a"
     default_icon = "dialog-error"
-    format = "<b><span foreground='#f38ba8'>%s</span></b>\n%b"
+    format = "<b><span foreground='#b4637a'>%s</span></b>\n%b"
 

@@ -1,0 +1,48 @@
+#!/usr/bin/env php
+<?php
+
+if ($argc < 3) {
+    fwrite(STDERR, "Usage: unserialize-permissions <input.json> <output.json>\n");
+    exit(1);
+}
+
+$inputFile  = $argv[1];
+$outputFile = $argv[2];
+
+if (!file_exists($inputFile)) {
+    fwrite(STDERR, "Error: Input file not found: $inputFile\n");
+    exit(1);
+}
+
+// Load JSON
+$inputJson = file_get_contents($inputFile);
+$data = json_decode($inputJson, true);
+
+if (!is_array($data)) {
+    fwrite(STDERR, "Error: Input file is not valid JSON\n");
+    exit(1);
+}
+
+$output = [];
+
+foreach ($data as $item) {
+
+    $decoded = @unserialize($item['permissionsBlock']);
+
+    if ($decoded === false && $item['permissionsBlock'] !== 'b:0;') {
+        $decoded = null; // keep script running even on bad data
+    }
+
+    $output[] = [
+        'oo_id'            => $item['oo_id'],
+        'path'             => $item['path'],
+        'name_en'          => $item['name_en'],
+        'name_de'          => $item['name_de'],
+        'permissionsBlock' => $decoded
+    ];
+}
+
+// Save output
+file_put_contents($outputFile, json_encode($output, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+
+echo "✔ Wrote $outputFile\n";

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 sudo pacman -Syu 
-sudo pacman -S hyprland kitty thunar rofi-wayland waybar swww hyprlock gnome-keyring libsecret gnome-themes-extra papirus-icon-theme
+sudo pacman -S hyprland kitty thunar rofi-wayland waybar awww hyprlock gnome-keyring libsecret gnome-themes-extra papirus-icon-theme
 # must have utils
 sudo pacman -S dunst pipewire xdg-desktop-portal-hyprland hyprpolkitagent qt5-wayland qt6-wayland cliphist network-manager-applet brightnessctl grim slurp noto-fonts-emoji
 

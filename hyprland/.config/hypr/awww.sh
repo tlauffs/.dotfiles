@@ -14,7 +14,7 @@ WALLPAPER_DIR="$HOME/wallpapers/$CURRENT_THEME_NAME/"
 # Set a random wallpaper from the theme's directory
 if [ -d "$WALLPAPER_DIR" ]; then
   # Get the filename of the current wallpaper
-  CURRENT_WALLPAPER_FILENAME=$(swww query | head -n 1 | awk -F 'image: ' '{print $2}' | xargs basename)
+  CURRENT_WALLPAPER_FILENAME=$(awww query | head -n 1 | awk -F 'image: ' '{print $2}' | xargs basename)
 
   # Find all wallpapers in the directory
   ALL_WALLPAPERS=$(find "$WALLPAPER_DIR" -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.jpeg" \))
@@ -29,7 +29,7 @@ if [ -d "$WALLPAPER_DIR" ]; then
 
   if [ -n "$CANDIDATE_WALLPAPERS" ]; then
     NEW_WALLPAPER=$(echo "$CANDIDATE_WALLPAPERS" | shuf -n 1)
-    swww img "$NEW_WALLPAPER" --transition-type grow --transition-duration 1.2 --transition-pos 0.9,0.1 --transition-fps 60
+    awww img "$NEW_WALLPAPER" --transition-type grow --transition-duration 1.2 --transition-pos 0.9,0.1 --transition-fps 60
     echo "Wallpaper set to: $NEW_WALLPAPER"
   else
     echo "No wallpapers found in '$WALLPAPER_DIR'." >&2

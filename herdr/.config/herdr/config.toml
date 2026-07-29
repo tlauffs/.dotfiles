@@ -9,6 +9,7 @@ navigate_workspace_up = "k"
 navigate_workspace_down = "j"
 switch_workspace = "prefix+shift+1..9"
 focus_agent = "prefix+ctrl+1..9"
+workspace_picker = "prefix+s"
 
 [ui]
 prompt_new_tab_name = false

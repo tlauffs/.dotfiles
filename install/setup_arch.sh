@@ -59,6 +59,10 @@ fi
 echo "Installing Fish shell..."
 sudo pacman -S fish
 
+# install herdr
+echo "Installing herdr"
+curl -fsSL https://herdr.dev/install.sh | sh
+
 # Docker
 # Add the official Docker repo
 # TODO

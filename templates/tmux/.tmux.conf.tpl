@@ -1,8 +1,3 @@
-# chagne leader key to ctrl space
-unbind C-b
-set -g prefix C-Space
-bind C-Space send-prefix
-
 # Smart pane switching with awareness of Vim splits.
 # See: https://github.com/christoomey/vim-tmux-navigator
 is_vim="ps -o state= -o comm= -t '#{pane_tty}'     | grep -iqE '^[^TXZ ]+ +(\S+\/)?g?(view|l?n?vim?x?|fzf)(diff)?$'"

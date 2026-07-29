@@ -9,7 +9,7 @@ git pull --recurse-submodules
 ```
 ## GNU Stow (Manage .dotfiles/Symlinks)
 - install (apt): sudo apt install stow build-essential
-- symlink all dotfiles: `stow fastfetch fish kitty nvim scripts tmux wallpapers gtk`
+- symlink all dotfiles: `stow fastfetch fish kitty nvim scripts tmux wallpapers gtk herdr`
 - cleanup all symlinks : `stow -D .` 
 
 ## Install
@@ -62,6 +62,7 @@ otherwise list of packages:
 - fzf
 - unzip
 - gcc
+- herdr
 
 ### Other Packages
 - just

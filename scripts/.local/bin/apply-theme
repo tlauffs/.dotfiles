@@ -122,6 +122,11 @@ if [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ]; then
     tmux source-file ~/.tmux.conf
   fi
 
+  # Reload Herdr if running
+  if herdr server reload-config 2>/dev/null; then
+    echo "    -> Reloaded Herdr config"
+  fi
+
   sleep 0.3s
   # Reload Waybar
   echo "    -> Reloading Waybar..."

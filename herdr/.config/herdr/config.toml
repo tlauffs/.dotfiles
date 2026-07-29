@@ -1,0 +1,15 @@
+[keys]
+prefix = "ctrl+b"
+split_horizontal = "prefix+p"
+split_vertical = "prefix+o"
+close_pane = "prefix+q"
+detach = "prefix+d"
+settings = "prefix+t"
+navigate_workspace_up = "k"
+navigate_workspace_down = "j"
+switch_workspace = "prefix+shift+1..9"
+focus_agent = "prefix+ctrl+1..9"
+
+[ui]
+prompt_new_tab_name = false
+sidebar_width = 32

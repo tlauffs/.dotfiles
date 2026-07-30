@@ -1,6 +1,8 @@
 #!/usr/bin/env php
 <?php
 
+ini_set('memory_limit', '512M');
+
 if ($argc < 3) {
     fwrite(STDERR, "Usage: unserialize-permissions <input.json> <output.json>\n");
     exit(1);
@@ -33,13 +35,17 @@ foreach ($data as $item) {
         $decoded = null; // keep script running even on bad data
     }
 
-    $output[] = [
-        'oo_id'            => $item['oo_id'],
-        'path'             => $item['path'],
-        'name_en'          => $item['name_en'],
-        'name_de'          => $item['name_de'],
-        'permissionsBlock' => $decoded
-    ];
+    # we want to keep all fields in original but replace the permissionsBlock with the unserialized version
+    $item['permissionsBlock'] = $decoded;
+    $output[] = $item;
+
+    # $output[] = [
+    #    'oo_id'            => $item['oo_id'],
+    #    'path'             => $item['path'],
+    #    'name_en'          => $item['name_en'],
+    #    'name_de'          => $item['name_de'],
+    #    'permissionsBlock' => $decoded
+    #];
 }
 
 // Save output

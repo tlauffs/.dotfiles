@@ -15,3 +15,4 @@ scripts/.local/bin/unserialize_permissions
 
 scripts/.local/bin/sqlit
 scripts/.local/bin/sqlit-tui
+scripts/.local/bin/poetry

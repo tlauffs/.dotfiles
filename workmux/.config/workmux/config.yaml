@@ -11,6 +11,10 @@ sandbox:
   enabled: true
 nerdfont: true
 
+dashboard:
+  layout: stacked
+  preview_size: 75
+
 sidebar:
   width: 15%
 

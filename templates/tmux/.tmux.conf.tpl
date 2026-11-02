@@ -34,7 +34,8 @@ bind r source ~/.config/tmux/tmux.conf
 bind-key h choose-session
 
 # workmux agent dashboard
-bind-key g display-popup -b heavy -h 85% -w 95% -s 'bg=${THEME_BASE00},fg=${THEME_BASE05}' -S 'bg=${THEME_BASE00},fg=${THEME_BASE03}' -E "workmux dashboard"
+#
+bind-key g display-popup -b none -h 100% -w 100% -s 'bg=${THEME_BASE00},fg=${THEME_BASE05}' -S 'bg=${THEME_BASE00},fg=${THEME_BASE03}' -E "workmux dashboard"
 bind-key G run-shell "workmux sidebar"
 
 # pane splitting

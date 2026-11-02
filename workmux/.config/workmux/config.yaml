@@ -1,0 +1,24 @@
+mode: session
+base_branch: auto
+merge_strategy: merge
+window_prefix: "{project}-"
+agent: opencode
+
+panes:
+  - focus: true
+
+sandbox:
+  enabled: true
+nerdfont: true
+
+sidebar:
+  width: 15%
+
+theme:
+  custom:
+    bg: black
+    fg: white
+    accent: blue
+    success: green
+    warning: yellow
+    error: red

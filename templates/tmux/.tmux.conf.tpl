@@ -16,7 +16,7 @@ bind-key -T copy-mode-vi 'C-l' select-pane -R
 bind-key -T copy-mode-vi 'C-\' select-pane -l
 
 # use mouse
-set -g mouse off
+set -g mouse on
 
 set -g base-index 1
 set -g pane-base-index 1
@@ -34,6 +34,10 @@ bind r source ~/.config/tmux/tmux.conf
 
 #sessions
 bind-key h choose-session
+
+# workmux agent dashboard
+bind-key g display-popup -b heavy -h 85% -w 95% -s 'bg=${THEME_BASE00},fg=${THEME_BASE05}' -S 'bg=${THEME_BASE00},fg=${THEME_BASE03}' -E "workmux dashboard"
+bind-key G run-shell "workmux sidebar"
 
 # pane splitting
 bind o split-window -h
@@ -76,3 +80,6 @@ set -g message-style bg=${THEME_BASE00},fg=${THEME_BASE0B}
 
 # Clock Mode Styling (When Showing the Clock in a Pane)
 set -g clock-mode-style 24
+
+# Use the active theme background in popups
+set -gw popup-style 'bg=${THEME_BASE00},fg=${THEME_BASE05}'

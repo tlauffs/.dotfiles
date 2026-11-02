@@ -31,6 +31,7 @@ abbr mv "mv -i"
 abbr mkdir "mkdir -p"
 abbr .. 'cd ..'
 abbr ... 'cd ../..'
+abbr wm 'workmux'
 
 # Add Neovim to PATH
 set -Ux PATH /opt/nvim $PATH

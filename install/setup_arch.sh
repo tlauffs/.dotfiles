@@ -59,22 +59,15 @@ fi
 echo "Installing Fish shell..."
 sudo pacman -S fish
 
-# install herdr
-echo "Installing herdr"
-curl -fsSL https://herdr.dev/install.sh | sh
+# Install workmux
+printf 'Installing workmux\n'
+curl -fsSL https://raw.githubusercontent.com/raine/workmux/main/scripts/install.sh | bash
 
-# Docker
-# Add the official Docker repo
-# TODO
-
-# Install Docker engine and standard plugins
-# sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-ce-rootless-extras
-
-# Give this user privileged Docker access
-# sudo usermod -aG docker ${USER}
-
-# Limit log size to avoid running out of disk
-# echo '{"log-driver":"json-file","log-opts":{"max-size":"10m","max-file":"5"}}' | sudo tee /etc/docker/daemon.json
+# Docker for workmux sandboxing
+printf 'Installing Docker\n'
+sudo pacman -S docker docker-compose
+sudo systemctl enable --now docker
+sudo usermod -aG docker "$USER"
 
 # Git aliases
 echo "Configuring Git aliases..."

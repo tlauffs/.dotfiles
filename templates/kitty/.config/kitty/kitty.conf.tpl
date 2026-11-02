@@ -3,7 +3,7 @@
 
 font_family ${FONT_FAMILY}
 font_size 12
-background_opacity 0.900000
+background_opacity 0.95
 window_padding_width 6
 
 # --- Main UI Colors ---

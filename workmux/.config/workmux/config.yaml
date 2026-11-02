@@ -1,5 +1,4 @@
 mode: session
-base_branch: auto
 merge_strategy: merge
 window_prefix: "{project}-"
 agent: opencode
